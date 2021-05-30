@@ -1,4 +1,5 @@
 /** Components */
+import LeftSection from 'views/left-section';
 import RightSection from 'views/right-section';
 
 /** Styles */
@@ -8,7 +9,7 @@ function App() {
   return (
     <div className={s.container}>
       <div>
-        test
+        <LeftSection />
       </div>
       <div>
         <RightSection />
