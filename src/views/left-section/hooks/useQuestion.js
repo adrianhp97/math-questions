@@ -11,6 +11,7 @@ import {
   SAVED_CURRENT_QUESTION,
   SAVED_ANSWERS,
   SAVED_TYPE,
+  SAVED_FINISH,
   QUESTION_TYPE_ENUM,
 } from '../constants';
 
@@ -19,6 +20,7 @@ export const useQuestion = () => {
   const [questionList, setQuestionList] = useState(JSON.parse(sessionStorage.getItem(SAVED_QUESTION_LIST)) || []);
   const [answers, setAnswers] = useState(JSON.parse(sessionStorage.getItem(SAVED_ANSWERS)) || {});
   const [type, setType] = useState(JSON.parse(sessionStorage.getItem(SAVED_TYPE)) || QUESTION_TYPE_ENUM.MultipleChoice);
+  const [isFinish, setIsFinish] = useState(JSON.parse(sessionStorage.getItem(SAVED_FINISH)));
 
   const currentQuestion = useMemo(() => {
     if (currentIdx >= questionList.length) return null
@@ -32,12 +34,17 @@ export const useQuestion = () => {
   const isFirstQuestion = useMemo(() => currentIdx === 0, [currentIdx]);
   const isLastQuestion = useMemo(() => currentIdx === questionList.length - 1, [currentIdx, questionList]);
 
+  const finish = useMemo(() => {
+    return isFinish || Object.values(answers).filter(item => item.submited).length === questionList.length
+  }, [isFinish, questionList, answers])
+
   const start = (type = QUESTION_TYPE_ENUM.MultipleChoice) => {
     try {
       const questions = shuffle(QUESTIONS).map(item => ({
         ...item,
         choices: shuffle(item.choices),
       }));
+      setIsFinish(false)
       setQuestionList(questions);
       setCurrentIdx(0);
       setAnswers({});
@@ -52,6 +59,7 @@ export const useQuestion = () => {
     setQuestionList([]);
     setAnswers({});
     setType(QUESTION_TYPE_ENUM.MultipleChoice);
+    sessionStorage.removeItem(SAVED_FINISH)
   }
 
   const jumpTo = useCallback((questionNumber) => {
@@ -96,7 +104,11 @@ export const useQuestion = () => {
     } catch (error) {
       console.log(error)
     }
-  }, [currentIdx, answers])
+  }, [currentIdx, answers]);
+
+  const setFinish = () => {
+    setIsFinish(true)
+  }
 
   useEffect(() => {
     sessionStorage.setItem(SAVED_QUESTION_LIST, JSON.stringify(questionList));
@@ -114,8 +126,14 @@ export const useQuestion = () => {
     sessionStorage.setItem(SAVED_TYPE, JSON.stringify(type));
   }, [type])
 
+  useEffect(() => {
+    sessionStorage.setItem(SAVED_FINISH, JSON.stringify(isFinish));
+  }, [isFinish])
+
   return {
     questionList,
+    answers,
+    currentIdx,
     currentQuestion,
     currentAnswer,
     isFirstQuestion,
@@ -127,5 +145,7 @@ export const useQuestion = () => {
     prev,
     type,
     setCurrentAnswer,
+    finish,
+    setFinish,
   }
 }

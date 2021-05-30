@@ -1,5 +1,5 @@
 /** Hooks */
-import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { useState, useCallback, useMemo, useRef } from 'react';
 
 export const useCalculator = () => {
   // const [expression, setExpression] = useState('');
@@ -46,9 +46,9 @@ export const useCalculator = () => {
 
       if (!newStack.length) return
       
-      if (newStack[newStack.length - 1].match(/[0-9()\.]$/)) {
+      if (newStack[newStack.length - 1].match(/[0-9().]$/)) {
         newStack.push(operator);
-      } else if (newStack[newStack.length - 1].match(/[*\-\/+]$/)) {
+      } else if (newStack[newStack.length - 1].match(/[*\-/+]$/)) {
         newStack[newStack.length - 1] = operator;
       }
 
@@ -69,7 +69,7 @@ export const useCalculator = () => {
           if (newStack[newStack.length - 1].match(/[0-9]$/) && !newStack[newStack.length - 1].includes('.')) {
             newStack[newStack.length - 1] += operan;
           }
-        } else if (newStack[newStack.length - 1].match(/[0-9\.]$/)) {
+        } else if (newStack[newStack.length - 1].match(/[0-9.]$/)) {
           newStack[newStack.length - 1] += operan;
         } else if (newStack[newStack.length - 1] === ')') {
           return
@@ -123,14 +123,14 @@ export const useCalculator = () => {
       } else {
         if (newStack[newStack.length - 1] === '(') {
           newStack.push('(')
-        } else if (newStack[newStack.length - 1].match(/[0-9\.]$/) && newStack.length === 1) {
+        } else if (newStack[newStack.length - 1].match(/[0-9.]$/) && newStack.length === 1) {
           newStack.unshift('(')
-        } else if (newStack[newStack.length - 1].match(/[0-9\.]$/) || newStack[newStack.length - 1] === ')') {
+        } else if (newStack[newStack.length - 1].match(/[0-9.]$/) || newStack[newStack.length - 1] === ')') {
           let brackets = getRemainingBracket();
           if (brackets.length > 0) {
             newStack.push(')')
           }
-        } else if (newStack[newStack.length - 1].match(/[*\-\/+]$/)) {
+        } else if (newStack[newStack.length - 1].match(/[*\-/+]$/)) {
           newStack.push('(')
         }
       }
