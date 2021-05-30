@@ -5,6 +5,7 @@
   height: 100%;
   width: 100%;
   padding: 24px;
+  position: relative;
 
   display: flex;
   justify-content: center;
@@ -22,5 +23,29 @@
   .actionWrapper {
     display: flex;
     justify-content: flex-end;
+  }
+
+  .poin {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+  }
+
+  .result {
+    font-size: 20px;
+
+    &.success {
+      color: $colorLightGreen;
+    }
+
+    &.error {
+      color: $colorLightRed;
+    }
+  }
+
+  .reset {
+    position: absolute;
+    top: 24px;
+    right: 24px;
   }
 }
