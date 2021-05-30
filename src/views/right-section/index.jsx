@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 /** Components */
 import Calculator from './component/calculator';
@@ -7,8 +7,6 @@ import Calculator from './component/calculator';
 import * as s from './s.module.scss';
 
 const RightSection = () => {
-  const [value, setValue] = useState(0);
-
   return (
     <div className={s.container}>
       <Calculator />
