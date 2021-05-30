@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 /** Hooks */
 import { useQuestion } from './hooks/useQuestion';
@@ -8,6 +8,9 @@ import QuestionMultipleChoice from './component/question-multiplechoice';
 import QuestionFreeText from './component/question-freetext';
 import Button from '_shared/button';
 import Radio from '_shared/form/radio';
+
+/** Store */
+import { usePageDispatch, ACTION_TYPE } from '_shared/toast/store';
 
 /** Constants */
 import { QUESTION_TYPE, QUESTION_TYPE_ENUM } from './constants';
@@ -30,6 +33,33 @@ const LeftSection = () => {
     next,
     prev,
   } = useQuestion();
+
+  const pageDispatch = usePageDispatch();
+
+  const submitOneAnswer = useCallback(() => {
+    try {
+      setCurrentAnswer(currentAnswer.answer, true)
+      if (currentAnswer.answer === currentQuestion.answer) {
+        pageDispatch({
+          type: ACTION_TYPE.ADD,
+          payload: {
+            type: 'success',
+            message: 'Your answer is correct',
+          }
+        })
+      } else {
+        pageDispatch({
+          type: ACTION_TYPE.ADD,
+          payload: {
+            type: 'error',
+            message: `Your answer is incorrect, the correct answer is ${currentQuestion.answer}`,
+          }
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }, [currentQuestion, currentAnswer, setCurrentAnswer, pageDispatch])
 
   return ( 
     <div className={s.container}>
@@ -56,7 +86,7 @@ const LeftSection = () => {
               {!isFirstQuestion && <Button onClick={() => prev()}>Prev</Button>}
               {!isLastQuestion && <Button onClick={() => next()}>Next</Button>}
               <Button
-                onClick={() => setCurrentAnswer(currentAnswer.answer, true)}
+                onClick={() => submitOneAnswer()}
                 disable={currentAnswer.submited}
               >
                 Submit
