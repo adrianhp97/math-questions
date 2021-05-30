@@ -1,0 +1,26 @@
+@import 'variables.scss';
+
+.container {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  padding: 24px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $colorLightBlue;
+
+  .questionWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 30%;
+    max-width: 60%;
+  }
+
+  .actionWrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
