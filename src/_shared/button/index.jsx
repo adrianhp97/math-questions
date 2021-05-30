@@ -6,11 +6,11 @@ import cx from 'classnames';
 /** Styles */
 import * as s from './s.module.scss';
 
-const Button = ({ children, onClick, className = '' }) => {
+const Button = ({ children, onClick, className = '', disable }) => {
   return (
-    <div className={cx(s.btn, className)} onClick={() => onClick && onClick()}>
+    <button disabled={disable} className={cx(s.btn, className)} onClick={() => !disable && onClick && onClick()}>
       {children}
-    </div>
+    </button>
   )
 }
 

@@ -1,0 +1,21 @@
+@import 'variables.scss';
+
+.questionFreeText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.correct {
+  border-color: $colorLightGreen;
+  color: $colorWhite;
+  background-color: $colorLightGreen;
+}
+
+.incorrect {
+  border-color: $colorLightRed;
+  color: $colorWhite;
+  background-color: $colorLightRed;
+}
