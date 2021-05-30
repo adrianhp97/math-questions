@@ -79,7 +79,9 @@ const LeftSection = () => {
           if (!(idx in currentAnswer) || !currentAnswer[idx].submited) return true
           return false
         });
-        jumpTo(selectedQuestion);
+        if (selectedQuestion >= 0) {
+          jumpTo(selectedQuestion);
+        }
       }
     } catch (error) {
       console.log(error)
