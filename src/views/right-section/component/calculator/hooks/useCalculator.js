@@ -141,6 +141,22 @@ export const useCalculator = () => {
     }
   }, [stack, getRemainingBracket])
 
+  const changeSign = useCallback(() => {
+    try {
+      let newStack = [...stack];
+
+      if (!newStack.length) return;
+      
+      if (newStack[newStack.length - 1].match(/[0-9.]$/)) {
+        newStack[newStack.length - 1] = `${(+newStack[newStack.length - 1] * -1)}`;
+      }
+
+      setStack(newStack);
+    } catch (error) {
+      console.log(error)
+    }
+  }, [stack])
+
   const clear = (removeHistory = false) => {
     setStack([]);
     if (removeHistory) {
@@ -160,5 +176,6 @@ export const useCalculator = () => {
     addBracket,
     clear,
     setStack,
+    changeSign,
   }
 }

@@ -1,7 +1,7 @@
 export const LAYOUT = [
   [
-    { value: 'ce', type: 'clear_all' },
-    { value: 'c', type: 'clear_all' },
+    { value: 'c', type: 'clear' },
+    { value: '+/-', type: 'change_sign' },
     { value: '()', type: 'bracket' },
     { value: '<-', type: 'backspace' },
   ],

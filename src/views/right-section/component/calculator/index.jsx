@@ -21,6 +21,7 @@ const Calculator = ({ onSubmit }) => {
     addOperan,
     addOperator,
     addBracket,
+    changeSign,
     calculate,
     backspace,
     clear,
@@ -54,9 +55,14 @@ const Calculator = ({ onSubmit }) => {
             </td>
           </tr>
           <tr>
-            <td colSpan={4}>
+            <td colSpan={2}>
               <Button onClick={() => setIsHistory(!isHistory)} block={true}>
                 {isHistory ? 'Go Back' : 'See History'}
+              </Button>
+            </td>
+            <td colSpan={2}>
+              <Button onClick={() => clear(true)} block={true}>
+                CE
               </Button>
             </td>
           </tr>
@@ -73,8 +79,8 @@ const Calculator = ({ onSubmit }) => {
                             case 'clear':
                               clear();
                               break
-                            case 'clear_all':
-                              clear(true);
+                            case 'change_sign':
+                              changeSign();
                               break
                             case 'eval':
                               calculate();

@@ -93,6 +93,8 @@ const LeftSection = () => {
     next,
     pageDispatch,
     isLastQuestion,
+    jumpTo,
+    questionList,
   ]);
 
   return ( 
