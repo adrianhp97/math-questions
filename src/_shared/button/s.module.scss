@@ -1,0 +1,31 @@
+@import 'variables.scss';
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  min-width: 60px;
+  min-height: 50px;
+  margin: 5px;
+  border-radius: 4px;
+  outline: 0;
+  border: none;
+  background-color: $colorWhite;
+
+  box-shadow: 0 4px rgba(0,0,0,0.2);
+
+  cursor: pointer;
+  color: #495069;
+  font-size: 20px;
+
+  &:hover {
+    color: #495069;
+    background-color: darken($color: #000000, $amount: 0);
+    float: left;
+    margin: 5px;
+    font-size: 20px;
+    box-shadow: 0 4px rgba(0,0,0,0.4);
+  }
+}
