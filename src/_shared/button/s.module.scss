@@ -21,11 +21,15 @@
   font-size: 20px;
 
   &:hover {
-    color: #495069;
-    background-color: darken($color: #000000, $amount: 0);
-    float: left;
+    color: $colorWhite;
+    background-color: $colorBlack;
     margin: 5px;
     font-size: 20px;
     box-shadow: 0 4px rgba(0,0,0,0.4);
+  }
+
+  &:disabled {
+    pointer-events: none;
+    background-color: $colorLightGrey;
   }
 }
