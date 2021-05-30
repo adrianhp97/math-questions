@@ -8,13 +8,13 @@ s.questionMultipleChoice {
 }
 
 .correct {
-  border-color: $colorLightGreen;
-  color: $colorWhite;
-  background-color: $colorLightGreen;
+  border-color: $colorLightGreen !important;
+  color: $colorWhite !important;
+  background-color: $colorLightGreen !important;
 }
 
 .incorrect {
-  border-color: $colorLightRed;
-  color: $colorWhite;
-  background-color: $colorLightRed;
+  border-color: $colorLightRed !important;
+  color: $colorWhite !important;
+  background-color: $colorLightRed !important;
 }
