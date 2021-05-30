@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+/** Hooks */
+import { useCalculator } from './hooks/useCalculator';
+
 /** Components  */
 import Button from '_shared/button';
 
@@ -10,7 +13,20 @@ import { LAYOUT } from './constants';
 import * as s from './s.module.scss';
 
 const Calculator = ({ onSubmit }) => {
-  const [value, setValue] = useState('');
+  const [isHistory, setIsHistory] = useState(false);
+  const {
+    inputRef,
+    value,
+    expression,
+    addOperan,
+    addOperator,
+    addBracket,
+    calculate,
+    backspace,
+    clear,
+    history,
+    setStack,
+  } = useCalculator();
 
   return (
     <div className={s.calculator}>
@@ -18,11 +34,34 @@ const Calculator = ({ onSubmit }) => {
         <tbody>
           <tr>
             <td colSpan={4}>
-              <input type="text" className={s.monitor} value={value}  onChange={(e) => setValue(e.target.value)} />
+              <input
+                type="text"
+                className={s.monitor}
+                value={value}
+                readOnly
+              />
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={4}>
+              <input
+                ref={inputRef}
+                type="text"
+                className={s.monitor}
+                value={expression}
+                onChange={(e) => null}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={4}>
+              <Button onClick={() => setIsHistory(!isHistory)} block={true}>
+                {isHistory ? 'Go Back' : 'See History'}
+              </Button>
             </td>
           </tr>
           {
-            LAYOUT.map((row, idx) => (
+            !isHistory ? LAYOUT.map((row, idx) => (
               <tr key={`row-${idx}`}>
                 {
                   row.map((cell, jdx) => (
@@ -30,30 +69,56 @@ const Calculator = ({ onSubmit }) => {
                       <Button
                         className={s.operan}
                         onClick={() => {
-                          switch(cell) {
-                            case 'c':
-                              setValue('');
+                          switch(cell.type) {
+                            case 'clear':
+                              clear();
                               break
-                            case '=':
-                              try {
-                                // eslint-disable-next-line no-eval
-                                setValue(eval(value) || '');
-                              } catch (error) {
-                                
-                              }
+                            case 'clear_all':
+                              clear(true);
+                              break
+                            case 'eval':
+                              calculate();
+                              break;
+                            case 'operan':
+                              addOperan(cell.value);
+                              break;
+                            case 'operator':
+                              addOperator(cell.value);
+                              break;
+                            case 'bracket':
+                              addBracket();
+                              break;
+                            case 'backspace':
+                              backspace();
                               break;
                             default:
-                              setValue(value + cell)
+                              break;
                           }
                         }}
                       >
-                        {cell}
+                        {cell.value}
                       </Button>
                     </td>
                   ))
                 }
               </tr>
-            ))
+            )) : (
+              <tr>
+                <td colSpan={4}>
+                  {
+                    history.map((history, idx) => (
+                      <div
+                        key={`history-${idx}`}
+                        className={s.historyWrapper}
+                        onClick={() => setStack(history.stack)}
+                      >
+                        {history.expression} = {history.result}
+                      </div>
+                    ))
+                  }
+                </td>
+              </tr>
+            )
           }
         </tbody>
       </table>

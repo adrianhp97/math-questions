@@ -32,4 +32,8 @@
     pointer-events: none;
     background-color: $colorLightGrey;
   }
+
+  &.block {
+    width: 100%;
+  }
 }
