@@ -43,7 +43,7 @@ export const useQuestion = () => {
       const questions = shuffle(QUESTIONS).map(item => ({
         ...item,
         choices: shuffle(item.choices),
-      }));
+      })).slice(0, 10);
       setIsFinish(false)
       setQuestionList(questions);
       setCurrentIdx(0);
