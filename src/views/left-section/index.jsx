@@ -37,6 +37,7 @@ const LeftSection = () => {
     isLastQuestion,
     next,
     prev,
+    jumpTo,
     setFinish,
     finish,
   } = useQuestion();
@@ -73,6 +74,12 @@ const LeftSection = () => {
       }
       if (!isLastQuestion) {
         next()
+      } else {
+        const selectedQuestion = questionList.findIndex((item, idx) => {
+          if (!(idx in currentAnswer) || !currentAnswer[idx].submited) return true
+          return false
+        });
+        jumpTo(selectedQuestion);
       }
     } catch (error) {
       console.log(error)
