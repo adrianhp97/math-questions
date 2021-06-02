@@ -245,6 +245,6 @@ export const QUESTIONS = [
     question: 'I have a 7 in the tens place. I have an even number in the ones place. I am lower than 74. What number am I?',
     type: 'ordering',
     answer: '72',
-    choices: ['70', '72', '72', '68']
+    choices: ['70', '72', '74', '68']
   },
 ]
