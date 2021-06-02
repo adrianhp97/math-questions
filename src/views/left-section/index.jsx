@@ -144,7 +144,7 @@ const LeftSection = () => {
         ) : (
           <div className={s.questionWrapper}>
             {
-              finish && (
+              questionList.length && finish && (
                 <div className={cx(s.result, (totalCorrect / questionList.length) > 0.5 ? s.success : s.error)}>
                   <div>Correct Answer: {totalCorrect} / {questionList.length}</div>
                 </div>
